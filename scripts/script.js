@@ -5,15 +5,52 @@ let equals = document.querySelector(`#equals`);
 let clear = document.querySelector(`#clear`);
 console.log(numButton);
 
+let operators = {
+    add: document.query
+    subtract: `-`,
+    multiply: `*`,
+    divide: `/`,  
+    `=`: 
+};
+
+let numbers = {
+    one: `1`,
+    two: `2`,
+    three: `3`,
+    four: `4`,
+    five: `5`,
+    six: `6`,
+    seven: `7`,
+    eight: `8`,
+    nine: `9`,
+    zero: `0`,
+
+}
 const numberElements = document.getElementsByClassName("numbers");
 console.log(numberElements);
 
+/*
+[       the major issue with this is that the numbers should show the sum, NOT the operators.
+[   take inspiration from the example. When the operator is clicked, it highlights and
+[   then turns back when the number is pressed. This means that the operator is passive
+[   and only serves to pass the operator to the number on click, which then turns out the 
+[   sum.
+[   
+[                *** Tasks ***
+[   1. change variables with numbers and operators to objects. 
+[   2. add main summing functions to click
+[   3. change operator button to only send operator
+[   4. figure out clear functionality, objects will help with this, reduce variables to clear.
+[   5. add negative and remainder buttons.
+[   6. add decimal button and change output to floating point instead of integer.
+[   7. add a functioning backspace button
+[    8. add keyboard support
+*/
 let displayedNumbers = display.textContent;
 console.log(displayedNumbers);
 Array.from(numberElements).forEach(function(element) {
     element.addEventListener(`click`, () => {
-        let number = element.getAttribute(`id`);
-        display.textContent += number;
+        
     });
 })
 
@@ -22,9 +59,9 @@ clear.addEventListener(`click`, () => display.textContent = ``)
 
 let operatorElements = document.querySelectorAll(`.operators`)
 let initialNumber;
-let firstOperand
+let firstOperand;
 let secondOperand; 
-let operator;
+
 Array.from(operatorElements).forEach(function(element) {
     element.addEventListener(`click`, () => {
         
