@@ -6,11 +6,11 @@ let clear = document.querySelector(`#clear`);
 console.log(numButton);
 
 let operators = {
-    add: document.query
+    add: `+`,
     subtract: `-`,
     multiply: `*`,
     divide: `/`,  
-    `=`: 
+    equals: `=`,
 };
 
 let numbers = {
@@ -48,9 +48,27 @@ console.log(numberElements);
 */
 let displayedNumbers = display.textContent;
 console.log(displayedNumbers);
+let num1;
+let firstOperand = ``;
 Array.from(numberElements).forEach(function(element) {
     element.addEventListener(`click`, () => {
+        const number = element.getAttribute(`id`);
+        console.log(number);
+        for (let key in numbers) {
+            if (numbers[key] === number) {
+                if (num1 === undefined) {
+                    firstOperand += number;
+                    display.textContent += numbers[key];
+                } else  {
+                    display.textContent = ``;
+                    secondOperand += number;
+                    display.textContent += numbers[key];
+                }
+        }   }   
         
+        
+
+        console.log(firstOperand);
     });
 })
 
@@ -59,22 +77,20 @@ clear.addEventListener(`click`, () => display.textContent = ``)
 
 let operatorElements = document.querySelectorAll(`.operators`)
 let initialNumber;
-let firstOperand;
-let secondOperand; 
 
+let secondOperand; 
+let operator;
 Array.from(operatorElements).forEach(function(element) {
     element.addEventListener(`click`, () => {
         
-        operator = element.getAttribute(`id`);
+        
         
         if (secondOperand === undefined) {
+            num1 = parseFloat(firstOperand);
+            operator = element.getAttribute(`id`);
+            console.log(num1);
             
-            
-         
-            intialNumber = Array.from(display.textContent);
-            console.log(initialNumber);
-            firstOperand = intialNumber.join(``);
-            display.textContent = ``; 
+
         } else {
             
             intialNumber = Array.from(display.textContent);
@@ -95,8 +111,7 @@ Array.from(operatorElements).forEach(function(element) {
         
               
     })
-})
-
+});
 // functions attached to operators that will display running sums
 // i need to program the summing operators to use the operator function
 // after two numbers are entered, that sum will then be stored and displayed
