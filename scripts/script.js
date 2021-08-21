@@ -1,9 +1,8 @@
-let runningTotal = 0;
 let numButton = document.querySelectorAll(`.numbers`);
 let display = document.querySelector(`#display-area`)
 let equals = document.querySelector(`#equals`);
 let clear = document.querySelector(`#clear`);
-console.log(numButton);
+
 
 let operators = {
     add: `+`,
@@ -27,7 +26,7 @@ let numbers = {
 
 }
 const numberElements = document.getElementsByClassName("numbers");
-console.log(numberElements);
+
 
 /*
 [       the major issue with this is that the numbers should show the sum, NOT the operators.
@@ -46,70 +45,74 @@ console.log(numberElements);
 [   7. add a functioning backspace button
 [    8. add keyboard support
 */
-let displayedNumbers = display.textContent;
-console.log(displayedNumbers);
+
 let num1;
 let firstOperand = ``;
+let secondOperand = ``;
+let num2;
 Array.from(numberElements).forEach(function(element) {
     element.addEventListener(`click`, () => {
         const number = element.getAttribute(`id`);
         console.log(number);
         for (let key in numbers) {
             if (numbers[key] === number) {
-                if (num1 === undefined) {
+                if (typeof num1 === `undefined`) {
                     firstOperand += number;
                     display.textContent += numbers[key];
-                } else  {
+                    console.log(firstOperand);
+                } else {
                     display.textContent = ``;
                     secondOperand += number;
-                    display.textContent += numbers[key];
-                }
+                    
+                    console.log(secondOperand);
+                    display.textContent += secondOperand;
+                }; 
         }   }   
         
-        
-
         console.log(firstOperand);
+        
     });
 })
 
-clear.addEventListener(`click`, () => display.textContent = ``)
+clear.addEventListener(`click`, () => {
+    firstOperand = ``;
+    secondOperand = ``;
+    num1 = undefined;
+    num2 = undefined;
+    operator = undefined;
+    sum = undefined;
+    equalSum = undefined;
+    display.textContent = ``;
+});
 
 
 let operatorElements = document.querySelectorAll(`.operators`)
 let initialNumber;
 
-let secondOperand; 
+let sum;
 let operator;
 Array.from(operatorElements).forEach(function(element) {
     element.addEventListener(`click`, () => {
         
         
-        
-        if (secondOperand === undefined) {
+        if (typeof num1 === `undefined`) {
             num1 = parseFloat(firstOperand);
             operator = element.getAttribute(`id`);
             console.log(num1);
+        } else if (typeof equalSum === `number`) {
+            num2 = undefined;
+            num1 = equalSum;
+            equalSum = undefined;
+            operator = element.getAttribute(`id`);
+        } else if (typeof num1 === `number`) {
             
-
-        } else {
-            
-            intialNumber = Array.from(display.textContent);
-            firstOperand = intialNumber.join(``);
-
-            // if (display.textContent =! intialNumber) {
-            //     display.textContent = ``;
-            // }
-            num1 = parseFloat(firstOperand);
-            secondOperand = Array.from(display.textContent).join(``);
             num2 = parseFloat(secondOperand);
-             display.textContent = operate(num1, operator, num2); 
-            
-        }
-        
-       
-       
-        
-              
+            sum = operate(num1, operator, num2);
+            display.textContent = `${sum}`;
+            secondOperand = ``;
+            num1 = sum;
+            operator = element.getAttribute(`id`);
+        };
     })
 });
 // functions attached to operators that will display running sums
@@ -127,12 +130,14 @@ Array.from(operatorElements).forEach(function(element) {
 // display sum and save as inital value / num1. 
 
 equals.addEventListener(`click`, () => {
-    num1 = parseFloat(firstOperand);
-    secondOperand = Array.from(display.textContent).join(``);
     num2 = parseFloat(secondOperand);
-    display.textContent = operate(num1, operator, num2);
+            equalSum = operate(num1, operator, num2);
+            display.textContent = `${equalSum}`;
+            secondOperand = ``;
+            num1 = equalSum;
     
-})
+    
+});
 
 // function displayNum() {
 //     numButton.addEventListener(`click`, () => {
