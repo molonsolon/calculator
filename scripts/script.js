@@ -13,16 +13,16 @@ let operators = {
 };
 
 let numbers = {
-    one: `1`,
-    two: `2`,
-    three: `3`,
-    four: `4`,
-    five: `5`,
-    six: `6`,
-    seven: `7`,
-    eight: `8`,
-    nine: `9`,
-    zero: `0`,
+    'Digit1': `1`,
+    'Digit2': `2`,
+    'Digit3': `3`,
+    'Digit4': `4`,
+    'Digit5': `5`,
+    'Digit6': `6`,
+    'Digit7': `7`,
+    'Digit8': `8`,
+    'Digit9': `9`,
+    'Digit0': `0`,
 
 }
 const numberElements = document.getElementsByClassName("numbers");
@@ -72,7 +72,39 @@ Array.from(numberElements).forEach(function(element) {
         console.log(firstOperand);
         
     });
+});
+
+
+document.addEventListener(`keydown`, function(event) {
+    const number = event.code;
+    console.log(number);
+    for (let key in numbers) {
+        if (key === number) {
+            if (typeof num1 === `undefined`) {
+                firstOperand += numbers[number];
+                display.textContent += numbers[number];
+                console.log(firstOperand);
+            } else {
+                display.textContent = ``;
+                secondOperand += numbers[number];
+                
+                console.log(secondOperand);
+                display.textContent += secondOperand;
+            }; 
+        };   
+    };
+
+    
+    
+
 })
+
+
+document.addEventListener(`keydown`, function(event) {
+    if (event.code === 'Digit1') {
+        console.log(`i'm 1`);
+    }
+});
 
 clear.addEventListener(`click`, () => {
     firstOperand = ``;
@@ -91,28 +123,63 @@ let initialNumber;
 
 let sum;
 let operator;
+
+
+// Most likely I'm going to have to create two seperate functions for
+// click and keydown respectively. However, I really want to make a single
+// function that can be attached succinctly to both event listeners.
+// The way I'm thinking of doing this is attaching an if statement
+// to the findOp function that's able to tell what it's pulling from.
+// I imagine it as being able to tell it's getting a id vs a keycode.
+
+let operatorFunction = function(element) {
+    if (typeof num1 === `undefined`) {
+    num1 = parseFloat(firstOperand);
+    operator = findOpClick(element);
+    
+    } else if (typeof equalSum === `number`) {
+    num2 = undefined;
+    num1 = equalSum;
+    equalSum = undefined;
+    operator = findOpClick(element);
+
+    } else if (typeof num1 === `number`) {
+    num2 = parseFloat(secondOperand);
+    sum = operate(num1, operator, num2);
+    display.textContent = `${sum}`;
+    secondOperand = ``;
+    num1 = sum;
+    operator = findOpClick(element);
+    };
+};
+function findOpClick(event) {
+    let op = event.key;
+    if (typeof op === `string`) {
+        if (op ==`Equals`) {
+            return `+`
+        }
+    }
+    else {
+        return event.getAttribute(`id`); 
+    }
+    console.log(op); 
+    
+        
+};
+
+
+// document.addEventListener(`keydown`, function(event) {
+//     if (event.key == `Equals` || event.key ==)
+//     operatorFunction(event);
+// })
+
+
 Array.from(operatorElements).forEach(function(element) {
     element.addEventListener(`click`, () => {
         
         
-        if (typeof num1 === `undefined`) {
-            num1 = parseFloat(firstOperand);
-            operator = element.getAttribute(`id`);
-            console.log(num1);
-        } else if (typeof equalSum === `number`) {
-            num2 = undefined;
-            num1 = equalSum;
-            equalSum = undefined;
-            operator = element.getAttribute(`id`);
-        } else if (typeof num1 === `number`) {
-            
-            num2 = parseFloat(secondOperand);
-            sum = operate(num1, operator, num2);
-            display.textContent = `${sum}`;
-            secondOperand = ``;
-            num1 = sum;
-            operator = element.getAttribute(`id`);
-        };
+        
+        operatorFunction(element);
     })
 });
 // functions attached to operators that will display running sums
