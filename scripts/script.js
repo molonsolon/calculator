@@ -1,14 +1,46 @@
+/*
+[       the major issue with this is that the numbers should show the sum, NOT the operators.
+[   take inspiration from the example. When the operator is clicked, it highlights and
+[   then turns back when the number is pressed. This means that the operator is passive
+[   and only serves to pass the operator to the number on click, which then turns out the 
+[   sum.
+[   
+[                *** Tasks ***
+[   [x] change variables with numbers and operators to objects. 
+[   [x] add main summing functions to click
+[   [x] change operator button to only send operator
+[   [x] figure out clear functionality, objects will help with this, reduce variables to clear.
+[   [] add negative and remainder buttons.
+[   [] add decimal button and change output to floating point instead of integer.
+[   [] add a functioning backspace button
+[   [x] add keyboard support
+*/
+
+/*Query Selectors*/
 let numButton = document.querySelectorAll(`.numbers`);
 let display = document.querySelector(`#display-area`)
 let equals = document.querySelector(`#equals`);
 let clear = document.querySelector(`#clear`);
+let operatorElements = document.querySelectorAll(`.operators`)
+const numberElements = document.getElementsByClassName("numbers");
+
+
+
+/*Global Number Storage*/
+let num2;
+let num1;
+let initialNumber;
+let sum;
+let operator;
+let firstOperand = ``;
+let secondOperand = ``;
 
 
 let operators = {
     add: `+`,
     subtract: `-`,
     multiply: `*`,
-    divide: `/`,  
+    divide: `/`,
     equals: `=`,
 };
 
@@ -23,253 +55,24 @@ let numbers = {
     'Digit8': `8`,
     'Digit9': `9`,
     'Digit0': `0`,
+    'Numpad1': `1`,
+    'Numpad2': `2`,
+    'Numpad3': `3`,
+    'Numpad4': `4`,
+    'Numpad5': `5`,
+    'Numpad6': `6`,
+    'Numpad7': `7`,
+    'Numpad8': `8`,
+    'Numpad9': `9`,
+    'Numpad0': `0`,
 
 }
-const numberElements = document.getElementsByClassName("numbers");
-
-
-/*
-[       the major issue with this is that the numbers should show the sum, NOT the operators.
-[   take inspiration from the example. When the operator is clicked, it highlights and
-[   then turns back when the number is pressed. This means that the operator is passive
-[   and only serves to pass the operator to the number on click, which then turns out the 
-[   sum.
-[   
-[                *** Tasks ***
-[   1. change variables with numbers and operators to objects. 
-[   2. add main summing functions to click
-[   3. change operator button to only send operator
-[   4. figure out clear functionality, objects will help with this, reduce variables to clear.
-[   5. add negative and remainder buttons.
-[   6. add decimal button and change output to floating point instead of integer.
-[   7. add a functioning backspace button
-[    8. add keyboard support
-*/
-
-let num1;
-let firstOperand = ``;
-let secondOperand = ``;
-let num2;
-Array.from(numberElements).forEach(function(element) {
-    element.addEventListener(`click`, () => {
-        const number = element.getAttribute(`id`);
-        
-        for (let key in numbers) {
-            if (numbers[key] === number) {
-                if (typeof num1 === `undefined`) {
-                    firstOperand += number;
-                    display.textContent += numbers[key];
-                } else {
-                    display.textContent = ``;
-                    secondOperand += number;
-                    
-                   
-                    display.textContent += secondOperand;
-                }; 
-        }   }   
-        
-       
-        
-    });
-});
 
 
 
-let map = {};
-document.addEventListener(`keydown`,function(event) {
-    
-})
-
-document.addEventListener(`keyup`, function(event) {
-    delete map[event.code];
-})
-
-document.addEventListener(`keydown`, function(event) {
-    map[event.code] = event.type == `keydown`;
-    
-    const keypress = event.code;
-    
-    
-   
-   
-    for (let key in numbers) {
-        if (key === keypress) {
-            if (typeof num1 === `undefined`) {
-                firstOperand += numbers[keypress];
-                display.textContent += numbers[keypress];
-                console.log(firstOperand);
-            } else {
-                display.textContent = ``;
-                secondOperand += numbers[keypress];
-                console.log(secondOperand);
-                display.textContent += secondOperand;
-            }; 
-        };   
-    };
-    
-    console.log(map);
-   
-    if (map[`ShiftLeft`] && map[`Equal`])  { 
-        console.log(`SHIFT_EQUAL`); 
-        operatorFunctionKeys(`+`); 
-
-        map = [];
-    } else if (map[`Minus`])  { 
-        console.log(`Minus`); 
-        operatorFunctionKeys(`-`); 
-        map = [];
-
-    } else if (map[`ShiftLeft`] && map[`Digit8`])  { 
-        console.log(`SHIFT_8`); 
-        operatorFunctionKeys(`*`); 
-        map = [];
-
-    } else if (map[`Slash`])  { 
-        console.log(`SLASH`); 
-        operatorFunctionKeys(`/`); 
-        map = [];
-
-    }  else if (map[`KeyC`]) {
-        console.log(`calculator cleared`)
-        firstOperand = ``;
-        secondOperand = ``;
-        num1 = undefined;
-        num2 = undefined;
-        operator = undefined;
-        sum = undefined;
-        equalSum = undefined;
-        display.textContent = ``;
-
-    } else if (map[`Equal`]) {
-        num2 = parseFloat(secondOperand);
-        equalSum = operate(num1, operator, num2);
-        display.textContent = `${equalSum}`;
-        secondOperand = ``;
-        num1 = equalSum;
-    };
-
-}); 
-
-let operatorFunctionKeys = function(op) {
-        if (typeof num1 === `undefined`) {
-            num1 = parseFloat(firstOperand);
-            operator = op;
-        
-        } else if (typeof equalSum === `number`) {
-            num2 = undefined;
-            num1 = equalSum;
-            equalSum = undefined;
-            operator = op;
-    
-        } else if (typeof num1 === `number`) {
-            num2 = parseFloat(secondOperand);
-            sum = operate(num1, operator, num2);
-            display.textContent = `${sum}`;
-            secondOperand = ``;
-            num1 = sum;
-            operator = op;
-        };
-};
-
-
-
-clear.addEventListener(`click`, () => {
-    firstOperand = ``;
-    secondOperand = ``;
-    num1 = undefined;
-    num2 = undefined;
-    operator = undefined;
-    sum = undefined;
-    equalSum = undefined;
-    display.textContent = ``;
-});
-
-
-let operatorElements = document.querySelectorAll(`.operators`)
-let initialNumber;
-
-let sum;
-let operator;
-
-
-// Most likely I'm going to have to create two seperate functions for
-// click and keydown respectively. However, I really want to make a single
-// function that can be attached succinctly to both event listeners.
-// The way I'm thinking of doing this is attaching an if statement
-// to the findOp function that's able to tell what it's pulling from.
-// I imagine it as being able to tell it's getting a id vs a keycode.
-
-let operatorFunction = function(element) {
-    if (typeof num1 === `undefined`) {
-    num1 = parseFloat(firstOperand);
-    operator = findOpClick(element);
-    
-    } else if (typeof equalSum === `number`) {
-    num2 = undefined;
-    num1 = equalSum;
-    equalSum = undefined;
-    operator = findOpClick(element);
-
-    } else if (typeof num1 === `number`) {
-    num2 = parseFloat(secondOperand);
-    sum = operate(num1, operator, num2);
-    display.textContent = `${sum}`;
-    secondOperand = ``;
-    num1 = sum;
-    operator = findOpClick(element);
-    };
-};
-function findOpClick(event) {
-    
-    
-    return event.getAttribute(`id`); 
-    
-    
-        
-};
-
-
-// document.addEventListener(`keydown`, function(event) {
-//     if (event.key == `Equals` || event.key ==)
-//     operatorFunction(event);
-// })
-
-
-Array.from(operatorElements).forEach(function(element) {
-    element.addEventListener(`click`, () => {
-        
-        
-        
-        operatorFunction(element);
-    })
-});
-// functions attached to operators that will display running sums
-// i need to program the summing operators to use the operator function
-// after two numbers are entered, that sum will then be stored and displayed
-// then erased when another operator is clicked, wait for input,
-// then adding the previous displayed value to just entered value.
-// this means that the equals sign and operator signs need to do similar
-// things. 
-
-// first, i need to store my initial value in a variable,
-// then i need to clear the display when an operator is pressed,
-// allowing for the entering and storing of a second value
-// after another operator is pressed OR if the equals is pressed,
-// display sum and save as inital value / num1. 
-
-equals.addEventListener(`click`, () => {
-    num2 = parseFloat(secondOperand);
-            equalSum = operate(num1, operator, num2);
-            display.textContent = `${equalSum}`;
-            secondOperand = ``;
-            num1 = equalSum;
-    
-    
-});
-
-
+/*Operator functions*/
 function multiply(a, b) {
-    if (runningTotal ==! 0) {
+    if (runningTotal == !0) {
         runningTotal = a;
         return a * b;
     }
@@ -291,10 +94,6 @@ function divide(a, b) {
     runningTotal = a / b;
     return runningTotal;
 };
-
-//write a function that takes two numbers and an operator.
-//have that function call one of the other mathematical functions
-// and then returns the answer.
 function operate(num1, operator, num2) {
     if (operator == `*`) {
         return multiply(num1, num2)
@@ -306,3 +105,183 @@ function operate(num1, operator, num2) {
         return subtract(num1, num2)
     };
 };
+
+function positiveNegative(num) {
+    if (display.textContent == num1 || display.textContent == num2) {
+
+    };
+};
+
+let operatorFunctionKeys = function (op) {
+    if (typeof num1 === `undefined`) {
+        num1 = parseFloat(firstOperand);
+        operator = op;
+
+    } else if (typeof equalSum === `number`) {
+        num2 = undefined;
+        num1 = equalSum;
+        equalSum = undefined;
+        operator = op;
+
+    } else if (typeof num1 === `number`) {
+        num2 = parseFloat(secondOperand);
+        sum = operate(num1, operator, num2);
+        display.textContent = `${sum}`;
+        secondOperand = ``;
+        num1 = sum;
+        operator = op;
+    };
+};
+
+let operatorFunction = function (element) {
+
+    if (typeof num1 === `undefined`) {
+        num1 = parseFloat(firstOperand);
+        operator = element.getAttribute(`id`);
+
+    } else if (typeof equalSum === `number`) {
+        num2 = undefined;
+        num1 = equalSum;
+        equalSum = undefined;
+        operator = element.getAttribute(`id`);
+
+    } else if (typeof num1 === `number`) {
+        num2 = parseFloat(secondOperand);
+        sum = operate(num1, operator, num2);
+        display.textContent = `${sum}`;
+        secondOperand = ``;
+        num1 = sum;
+        operator = element.getAttribute(`id`);
+    };
+};
+
+
+
+/* Keyboard Event Listeners*/
+let map = {};
+
+document.addEventListener(`keyup`, function (event) {
+    delete map[event.code];
+});
+
+document.addEventListener(`keydown`, function (event) {
+
+    map[event.code] = event.type == `keydown`;
+    const keypress = event.code;
+    console.log(map);
+
+    for (let key in numbers) {
+        if (key === keypress) {
+            if (typeof num1 === `undefined`) {
+                firstOperand += numbers[keypress];
+                display.textContent += numbers[keypress];
+                console.log(firstOperand);
+            } else {
+                display.textContent = ``;
+                secondOperand += numbers[keypress];
+                console.log(secondOperand);
+                display.textContent += secondOperand;
+            };
+        };
+    };
+
+
+
+    if (map[`ShiftLeft`] && map[`Equal`]) {
+        console.log(`SHIFT_EQUAL`);
+        operatorFunctionKeys(`+`);
+
+        map = [];
+    } else if (map[`Minus`]) {
+        console.log(`Minus`);
+        operatorFunctionKeys(`-`);
+        map = [];
+
+    } else if (map[`ShiftLeft`] && map[`Digit8`]) {
+        console.log(`SHIFT_8`);
+        operatorFunctionKeys(`*`);
+        map = [];
+
+    } else if (map[`Slash`]) {
+        console.log(`SLASH`);
+        operatorFunctionKeys(`/`);
+        map = [];
+
+    } else if (map[`KeyC`]) {
+        console.log(`calculator cleared`)
+        firstOperand = ``;
+        secondOperand = ``;
+        num1 = undefined;
+        num2 = undefined;
+        operator = undefined;
+        sum = undefined;
+        equalSum = undefined;
+        display.textContent = ``;
+
+    } else if (map[`Equal`]) {
+        num2 = parseFloat(secondOperand);
+        equalSum = operate(num1, operator, num2);
+        display.textContent = `${equalSum}`;
+        secondOperand = ``;
+        num1 = equalSum;
+    } else if (map[`ControlLeft`]) {
+        /* for negative button, use array methods to shift and unshift the negative at the
+        beginning. Also make sure that it's clearing the display and not applying it to the 
+        current sum */
+
+        if (display.textContent == firstOperand || display.textContent == secondOperand) {
+            let textArray = Array.from(firstOperand); 
+            console.log(textArray);
+            let negative = textArray.unshift(`-`).join(``);
+
+            display.textContent = `${negative}`;
+        }
+    }
+
+});
+
+/*Click Event Listeners*/
+clear.addEventListener(`click`, () => {
+    firstOperand = ``;
+    secondOperand = ``;
+    num1 = undefined;
+    num2 = undefined;
+    operator = undefined;
+    sum = undefined;
+    equalSum = undefined;
+    display.textContent = ``;
+});
+
+Array.from(operatorElements).forEach(function (element) {
+    element.addEventListener(`click`, () => {
+        operatorFunction(element);
+    });
+});
+
+Array.from(numberElements).forEach(function (element) {
+    element.addEventListener(`click`, () => {
+        const number = element.getAttribute(`id`);
+
+        for (let key in numbers) {
+            if (numbers[key] === number) {
+                if (typeof num1 === `undefined`) {
+                    firstOperand += number;
+                    display.textContent += numbers[key];
+
+                } else {
+                    display.textContent = ``;
+                    secondOperand += number;
+                    display.textContent += secondOperand;
+                };
+            };
+        };
+    });
+});
+
+equals.addEventListener(`click`, () => {
+    num2 = parseFloat(secondOperand);
+    equalSum = operate(num1, operator, num2);
+    display.textContent = `${equalSum}`;
+    secondOperand = ``;
+    num1 = equalSum;
+});
