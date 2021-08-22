@@ -53,58 +53,125 @@ let num2;
 Array.from(numberElements).forEach(function(element) {
     element.addEventListener(`click`, () => {
         const number = element.getAttribute(`id`);
-        console.log(number);
+        
         for (let key in numbers) {
             if (numbers[key] === number) {
                 if (typeof num1 === `undefined`) {
                     firstOperand += number;
                     display.textContent += numbers[key];
-                    console.log(firstOperand);
                 } else {
                     display.textContent = ``;
                     secondOperand += number;
                     
-                    console.log(secondOperand);
+                   
                     display.textContent += secondOperand;
                 }; 
         }   }   
         
-        console.log(firstOperand);
+       
         
     });
 });
 
 
+
+let map = {};
+document.addEventListener(`keydown`,function(event) {
+    
+})
+
+document.addEventListener(`keyup`, function(event) {
+    delete map[event.code];
+})
+
 document.addEventListener(`keydown`, function(event) {
-    const number = event.code;
-    console.log(number);
+    map[event.code] = event.type == `keydown`;
+    
+    const keypress = event.code;
+    
+    
+   
+   
     for (let key in numbers) {
-        if (key === number) {
+        if (key === keypress) {
             if (typeof num1 === `undefined`) {
-                firstOperand += numbers[number];
-                display.textContent += numbers[number];
+                firstOperand += numbers[keypress];
+                display.textContent += numbers[keypress];
                 console.log(firstOperand);
             } else {
                 display.textContent = ``;
-                secondOperand += numbers[number];
-                
+                secondOperand += numbers[keypress];
                 console.log(secondOperand);
                 display.textContent += secondOperand;
             }; 
         };   
     };
-
     
+    console.log(map);
+   
+    if (map[`ShiftLeft`] && map[`Equal`])  { 
+        console.log(`SHIFT_EQUAL`); 
+        operatorFunctionKeys(`+`); 
+
+        map = [];
+    } else if (map[`Minus`])  { 
+        console.log(`Minus`); 
+        operatorFunctionKeys(`-`); 
+        map = [];
+
+    } else if (map[`ShiftLeft`] && map[`Digit8`])  { 
+        console.log(`SHIFT_8`); 
+        operatorFunctionKeys(`*`); 
+        map = [];
+
+    } else if (map[`Slash`])  { 
+        console.log(`SLASH`); 
+        operatorFunctionKeys(`/`); 
+        map = [];
+
+    }  else if (map[`KeyC`]) {
+        console.log(`calculator cleared`)
+        firstOperand = ``;
+        secondOperand = ``;
+        num1 = undefined;
+        num2 = undefined;
+        operator = undefined;
+        sum = undefined;
+        equalSum = undefined;
+        display.textContent = ``;
+
+    } else if (map[`Equal`]) {
+        num2 = parseFloat(secondOperand);
+        equalSum = operate(num1, operator, num2);
+        display.textContent = `${equalSum}`;
+        secondOperand = ``;
+        num1 = equalSum;
+    };
+
+}); 
+
+let operatorFunctionKeys = function(op) {
+        if (typeof num1 === `undefined`) {
+            num1 = parseFloat(firstOperand);
+            operator = op;
+        
+        } else if (typeof equalSum === `number`) {
+            num2 = undefined;
+            num1 = equalSum;
+            equalSum = undefined;
+            operator = op;
     
+        } else if (typeof num1 === `number`) {
+            num2 = parseFloat(secondOperand);
+            sum = operate(num1, operator, num2);
+            display.textContent = `${sum}`;
+            secondOperand = ``;
+            num1 = sum;
+            operator = op;
+        };
+};
 
-})
 
-
-document.addEventListener(`keydown`, function(event) {
-    if (event.code === 'Digit1') {
-        console.log(`i'm 1`);
-    }
-});
 
 clear.addEventListener(`click`, () => {
     firstOperand = ``;
@@ -153,16 +220,10 @@ let operatorFunction = function(element) {
     };
 };
 function findOpClick(event) {
-    let op = event.key;
-    if (typeof op === `string`) {
-        if (op ==`Equals`) {
-            return `+`
-        }
-    }
-    else {
-        return event.getAttribute(`id`); 
-    }
-    console.log(op); 
+    
+    
+    return event.getAttribute(`id`); 
+    
     
         
 };
@@ -206,12 +267,6 @@ equals.addEventListener(`click`, () => {
     
 });
 
-// function displayNum() {
-//     numButton.addEventListener(`click`, () => {
-//         let number = this.getAttribute(`id`);
-//         console.log(number);
-//     });
-// };
 
 function multiply(a, b) {
     if (runningTotal ==! 0) {
