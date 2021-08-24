@@ -1,57 +1,135 @@
+html {
+    background-image: url(https://amazing-wings.com/wp-content/uploads/2017/12/Sky-Clouds-1024x683.jpg);
+    background-size:cover;
+    background-repeat:no-repeat;
+    width: auto;
+    height: 100%;
+}
+body {
+    font-size: 10px;
+    font-family: 'Iceland', cursive;
+    margin-top: 100px;
+}
 
-
+button {
+    color: black;
+    background-color: whitesmoke;
+    border-color: red;
+    box-shadow: blue 1.5px .5px;
+    border-style: solid;
+    font-family: 'Iceland', cursive;
+    color: black;
+    background-color: whitesmoke;
+    border-color: red;
+    border-width: 2px !important;
+    border-style: solid !important;
+    font-size: 1.7rem;
+    font-family: 'Iceland', cursive;
+}
 
 #calc-container {
-    width: 400px;
-    height: 1000px;
+    width: 429px;
+    height: 555px;
     margin: auto;
     display: grid;
-    grid-template-columns: 300px 100px;
-    grid-template-rows: 100px 400px;
+    grid-gap: 3px;
+    grid-template-columns: repeat(3, 100px) 120px;
+    grid-template-rows: 120px repeat(5, 84px);
+    border-style: solid;
+    border-color: black;
+    border-width: 4px;
+    background-color: #cee6ff;
+   
+}
+
+
+
+#display-area {
+    height: 120px;
+    width: 425px;
+    border-style: solid;
+    border-color: black;
+    border-width: ;
+    grid-area: 1 / 1 / 1 / span 2;
+    font-size: 5rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    
     
 }
 
 #numbers-container {
     display: flex;
-    width: 300px;
     flex-wrap: wrap;
-    grid-area: 2 / 1 / 2 / 1;
-
-}
-#operators-container {
-    
-    grid-area: 2 / 2 / 2 / 2;
+    gap: 3px;
+    grid-area: 3 / 1 / 6 / 4;
 }
 
-#display-area {
-    height: 100px;
-    width: 400px;
-    border-style: solid;
-    border-color: black;
-    border-width: 1px;
-    grid-area: 1 / 1 / 1 / span 2;
+#decimal {
+    width: 100px;
+    height: 84px;
+   
+    border: none;
 }
+
 
 .numbers {
-    padding: 20px 40px 20px 40px;
+   width: 100px;
+   height: 84px;
+   
+   border: none;
+}
 
+[id='0'] {
+    width: 203px;
+}
+
+#operators-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    grid-area: 2 / 4 / 2 / 4;
 }
 
 .operators {
-    margin-left: -25px;
-    width: 130px;
-    height: 75px;
+   height: 84px;
+   width: 120px;
+   
+   border: none;
 }
 
 #equals {
-    width: 185px;
-    margin-left: -315px;
-    height: 100px;
+    height: 84px;
+    width: 120px; 
+   
+    border: none;
 }
 
-#clear {
-    height: 100px;
-    margin-left: -25px;
-    width: 130px;
+#extra-operators-container {
+    display: flex;
     
+   
+    gap: 3px;
+    
+    grid-area: 2 / 1 / 2 / 4;
+}
+
+.extra-operators {
+   width: 100px;
+
+   border: none;
+
+}
+
+#negative {
+    height: 42px;
+    margin-top: 42px;
+    border-top-width: 1px !important;
+}
+
+#backspace {
+    height: 42px;
+    margin-left: -103px;
+    border-bottom-width: 1px !important;
 }

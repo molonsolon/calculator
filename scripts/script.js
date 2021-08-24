@@ -10,11 +10,15 @@
 [   [x] add main summing functions to click
 [   [x] change operator button to only send operator
 [   [x] figure out clear functionality, objects will help with this, reduce variables to clear.
-[   [] add negative and remainder buttons.
-[   [] add decimal button and change output to floating point instead of integer.
-[   [] add a functioning backspace button
+[   [x] add negative and remainder buttons.
+[   [x] add decimal button and change output to floating point instead of integer.
+[   [x] add a functioning backspace button
 [   [x] add keyboard support
+[
+[   ~* - *~~ mission accomplished! ~~* - *~
 */
+
+
 
 /*Query Selectors*/
 let numButton = document.querySelectorAll(`.numbers`);
@@ -23,6 +27,8 @@ let equals = document.querySelector(`#equals`);
 let clear = document.querySelector(`#clear`);
 let operatorElements = document.querySelectorAll(`.operators`)
 const numberElements = document.getElementsByClassName("numbers");
+let runningTotal = 0;
+
 
 
 
@@ -44,7 +50,20 @@ let operators = {
     equals: `=`,
 };
 
-let numbers = {
+let clickNumbers = {
+    'Digit1': `1`,
+    'Digit2': `2`,
+    'Digit3': `3`,
+    'Digit4': `4`,
+    'Digit5': `5`,
+    'Digit6': `6`,
+    'Digit7': `7`,
+    'Digit8': `8`,
+    'Digit9': `9`,
+    'Digit0': `0`,
+}
+
+let keyNumbers = {
     'Digit1': `1`,
     'Digit2': `2`,
     'Digit3': `3`,
@@ -65,8 +84,9 @@ let numbers = {
     'Numpad8': `8`,
     'Numpad9': `9`,
     'Numpad0': `0`,
-
 }
+
+
 
 
 
@@ -94,6 +114,13 @@ function divide(a, b) {
     runningTotal = a / b;
     return runningTotal;
 };
+
+function remainder(a, b) {
+    runningtotal = a % b;
+    return runningtotal;
+};
+
+
 function operate(num1, operator, num2) {
     if (operator == `*`) {
         return multiply(num1, num2)
@@ -103,14 +130,11 @@ function operate(num1, operator, num2) {
         return add(num1, num2)
     } else if (operator == `-`) {
         return subtract(num1, num2)
+    } else if (operator == `%`) {
+        return remainder(num1, num2)
     };
 };
 
-function positiveNegative(num) {
-    if (display.textContent == num1 || display.textContent == num2) {
-
-    };
-};
 
 let operatorFunctionKeys = function (op) {
     if (typeof num1 === `undefined`) {
@@ -134,8 +158,9 @@ let operatorFunctionKeys = function (op) {
 };
 
 let operatorFunction = function (element) {
-
-    if (typeof num1 === `undefined`) {
+    if (secondOperand === 0) {
+        alert(`No no no! Dividing by zero is a crime against humanity :)`)
+    }   else if (typeof num1 === `undefined`) {
         num1 = parseFloat(firstOperand);
         operator = element.getAttribute(`id`);
 
@@ -155,6 +180,45 @@ let operatorFunction = function (element) {
     };
 };
 
+function characterInsertion() {
+    let character;
+    let arrayOp;
+    let textArray;
+    function idCharacter() {
+        if (map[`Period`]) {
+            character = `.`
+            arrayOp = textArray.push(character);
+        } else if (map[`ControlLeft`]) {
+            character = `-`
+            arrayOp = textArray.unshift(character);
+        } else if (map[`Backspace`]) {
+            arrayOp = textArray.pop();
+        }
+    };
+
+    if (display.textContent == firstOperand || display.textContent == secondOperand) {
+        if (typeof num1 === `undefined`) {
+            textArray = Array.from(firstOperand); 
+            idCharacter();
+            console.log(textArray);
+            let negative = textArray.join(``);
+            console.log(negative);
+            firstOperand = negative;
+            display.textContent = firstOperand;
+            console.log(firstOperand);
+        } else {
+            textArray = Array.from(secondOperand); 
+            idCharacter();
+            console.log(textArray);
+            let negative = textArray.join(``);
+            console.log(negative);
+            secondOperand = negative;
+            display.textContent = secondOperand;
+            console.log(secondOperand);
+        };
+    };  
+};
+
 
 
 /* Keyboard Event Listeners*/
@@ -166,25 +230,27 @@ document.addEventListener(`keyup`, function (event) {
 
 document.addEventListener(`keydown`, function (event) {
 
+    
     map[event.code] = event.type == `keydown`;
     const keypress = event.code;
     console.log(map);
 
-    for (let key in numbers) {
-        if (key === keypress) {
+
+
+    for (let key in keyNumbers) {
+        if (key === keypress && map[`ShiftLeft`] === undefined) {
             if (typeof num1 === `undefined`) {
-                firstOperand += numbers[keypress];
-                display.textContent += numbers[keypress];
+                firstOperand += keyNumbers[keypress];
+                display.textContent += keyNumbers[keypress];
                 console.log(firstOperand);
             } else {
                 display.textContent = ``;
-                secondOperand += numbers[keypress];
+                secondOperand += keyNumbers[keypress];
                 console.log(secondOperand);
                 display.textContent += secondOperand;
             };
         };
     };
-
 
 
     if (map[`ShiftLeft`] && map[`Equal`]) {
@@ -207,6 +273,11 @@ document.addEventListener(`keydown`, function (event) {
         operatorFunctionKeys(`/`);
         map = [];
 
+    } else if (map[`ShiftLeft`] && map[`Digit5`]) {
+        console.log(`REMAINDER`);
+        operatorFunctionKeys(`%`);
+        map = [];
+
     } else if (map[`KeyC`]) {
         console.log(`calculator cleared`)
         firstOperand = ``;
@@ -225,20 +296,17 @@ document.addEventListener(`keydown`, function (event) {
         secondOperand = ``;
         num1 = equalSum;
     } else if (map[`ControlLeft`]) {
-        /* for negative button, use array methods to shift and unshift the negative at the
-        beginning. Also make sure that it's clearing the display and not applying it to the 
-        current sum */
-
-        if (display.textContent == firstOperand || display.textContent == secondOperand) {
-            let textArray = Array.from(firstOperand); 
-            console.log(textArray);
-            let negative = textArray.unshift(`-`).join(``);
-
-            display.textContent = `${negative}`;
-        }
-    }
-
+        characterInsertion();
+          
+    } else if (map[`Period`]) {
+        characterInsertion();
+           
+    } else if (map[`Backspace`]) {
+        characterInsertion();
+    };
 });
+
+
 
 /*Click Event Listeners*/
 clear.addEventListener(`click`, () => {
@@ -261,14 +329,17 @@ Array.from(operatorElements).forEach(function (element) {
 Array.from(numberElements).forEach(function (element) {
     element.addEventListener(`click`, () => {
         const number = element.getAttribute(`id`);
-
-        for (let key in numbers) {
-            if (numbers[key] === number) {
+        
+        for (let key in clickNumbers) {
+            if (clickNumbers[key] === number) {
                 if (typeof num1 === `undefined`) {
+                    console.log(firstOperand)
                     firstOperand += number;
-                    display.textContent += numbers[key];
+                    display.textContent += clickNumbers[key];
+                    console.log(display.textContent);
 
                 } else {
+                    console.log(secondOperand);
                     display.textContent = ``;
                     secondOperand += number;
                     display.textContent += secondOperand;

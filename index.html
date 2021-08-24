@@ -5,6 +5,9 @@
     <meta chartset="UTF-8">
     <link href="CSS/reset.css" rel="stylesheet" type="text/css" media="all">
     <link href="CSS/style.css" rel="stylesheet" type="text/css" media="all">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Iceland&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="calc-container">
@@ -20,21 +23,25 @@
             <button id="7" class="numbers">7</button>
             <button id="8" class="numbers">8</button>
             <button id="9" class="numbers">9</button>
-            <button id="0" class="numbers">0</button>
+            <button id="0" class="numbers" class="zero">0</button>
+            <button id="decimal">.</button>
+
         </div>
         <div id="operators-container">
-            <button id="+" class="operators">+</button>
+            <button id="+" class="operators" class="plus">+</button>
             <button id="-" class="operators">-</button>
             <button id="*" class="operators">*</button>
             <button id="/" class="operators">/</button>
-            <button id="clear">C</button>
             <button id="equals">=</button>
-            <button id="negative">+/-</button>
-            <button id="backspace"><-</button>
-            <button id="remainder">%</button>
-            <button id="decimal">.</button>
+            
         </div>
-        
+        <div id="extra-operators-container">
+            <button id="clear" class="extra-operators">C</button>
+            <button id="negative" class="extra-operators">+/-</button>
+            <button id="backspace" class="extra-operators"><-</button>
+            <button id="remainder" class="extra-operators">%</button>
+            
+        </div>
     </div>
     <script src="scripts/script.js" defer></script>
 </body>
