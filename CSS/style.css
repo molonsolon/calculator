@@ -1,31 +1,68 @@
 html {
-    background-image: url(https://amazing-wings.com/wp-content/uploads/2017/12/Sky-Clouds-1024x683.jpg);
-    background-size:cover;
-    background-repeat:no-repeat;
     width: auto;
     height: 100%;
+    background: linear-gradient(hsl(207, 94%, 50%), hsl(207, 80%, 84%));
 }
 body {
     font-size: 10px;
     font-family: 'Iceland', cursive;
     margin-top: 100px;
+    overflow: hidden;
 }
 
 button {
-    color: black;
-    background-color: whitesmoke;
-    border-color: red;
-    box-shadow: blue 1.5px .5px;
-    border-style: solid;
     font-family: 'Iceland', cursive;
     color: black;
-    background-color: whitesmoke;
-    border-color: red;
-    border-width: 2px !important;
+    background-color: rgba(205, 231, 255, 0.6);
+    
+    border-color: white !important;
+    border-width: 1px !important;
     border-style: solid !important;
-    font-size: 1.7rem;
-    font-family: 'Iceland', cursive;
+    font-size: 2rem;
+    z-index: 5;
+
 }
+
+.cloud {
+    width: 600px;
+    height: 100px;
+    border-radius: 50%;
+    position: fixed;
+    margin-top: -150px;
+    margin-left: -100px;
+    z-index: 1;
+  }
+  
+  #cloud-base {
+    top: 90px;
+    height: 100px;
+    filter: url(#filter-base);
+    box-shadow: 200px 170px 19px 40px rgba(255, 255, 255, 0.9);
+  }
+  #cloud-back {
+    top: 90px;
+    height: 30px;
+    width: 500px;
+    filter: url(#filter-back);
+    box-shadow: 200px 200px 10px 40px rgba(215, 215, 215, 0.3);
+  }
+  
+  #cloud-mid {
+    top: 80px;
+    width: 580px;
+    height: 35px;
+    filter: url(#filter-mid);
+    box-shadow: 210px 250px 28px 30px rgba(66, 105, 146, 0.2);
+  }
+  
+  #cloud-front {
+    top: 70px;
+    width: 450px;
+    height: 40px;
+    left: -20px;
+    filter: url(#filter-front);
+    box-shadow: 210px 272px 30px 0px rgba(0, 0, 0, 0.2);
+  }
 
 #calc-container {
     width: 429px;
@@ -35,27 +72,23 @@ button {
     grid-gap: 3px;
     grid-template-columns: repeat(3, 100px) 120px;
     grid-template-rows: 120px repeat(5, 84px);
-    border-style: solid;
-    border-color: black;
-    border-width: 4px;
-    background-color: #cee6ff;
-   
+    z-index: 2;
+    
 }
+
 
 
 
 #display-area {
     height: 120px;
-    width: 425px;
-    border-style: solid;
-    border-color: black;
-    border-width: ;
+    width: 427px;
+    color: rgb(92, 92, 92);
     grid-area: 1 / 1 / 1 / span 2;
     font-size: 5rem;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    
+    z-index: 2;
     
 }
 

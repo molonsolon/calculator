@@ -14,19 +14,22 @@
 [   [x] add decimal button and change output to floating point instead of integer.
 [   [x] add a functioning backspace button
 [   [x] add keyboard support
+[   [x] don't allow users to enter more than one decimal point
+[   [x] round decimal places in sum to two places.
 [
-[   ~* - *~~ mission accomplished! ~~* - *~
+[  
 */
 
 
 
 /*Query Selectors*/
-let numButton = document.querySelectorAll(`.numbers`);
-let display = document.querySelector(`#display-area`)
-let equals = document.querySelector(`#equals`);
-let clear = document.querySelector(`#clear`);
-let operatorElements = document.querySelectorAll(`.operators`)
+const numButton = document.querySelectorAll(`.numbers`);
+const display = document.querySelector(`#display-area`)
+const equals = document.querySelector(`#equals`);
+const clear = document.querySelector(`#clear`);
+const operatorElements = document.querySelectorAll(`.operators`)
 const numberElements = document.getElementsByClassName("numbers");
+const decimal = document.querySelector(`#decimal`)
 let runningTotal = 0;
 
 
@@ -42,7 +45,7 @@ let firstOperand = ``;
 let secondOperand = ``;
 
 
-let operators = {
+const operators = {
     add: `+`,
     subtract: `-`,
     multiply: `*`,
@@ -50,7 +53,7 @@ let operators = {
     equals: `=`,
 };
 
-let clickNumbers = {
+const clickNumbers = {
     'Digit1': `1`,
     'Digit2': `2`,
     'Digit3': `3`,
@@ -63,7 +66,7 @@ let clickNumbers = {
     'Digit0': `0`,
 }
 
-let keyNumbers = {
+const keyNumbers = {
     'Digit1': `1`,
     'Digit2': `2`,
     'Digit3': `3`,
@@ -149,7 +152,7 @@ let operatorFunctionKeys = function (op) {
 
     } else if (typeof num1 === `number`) {
         num2 = parseFloat(secondOperand);
-        sum = operate(num1, operator, num2);
+        sum = Math.round((operate(num1, operator, num2) + Number.EPSILON) * 100) / 100;
         display.textContent = `${sum}`;
         secondOperand = ``;
         num1 = sum;
@@ -157,12 +160,15 @@ let operatorFunctionKeys = function (op) {
     };
 };
 
-let operatorFunction = function (element) {
-    if (secondOperand === 0) {
-        alert(`No no no! Dividing by zero is a crime against humanity :)`)
-    }   else if (typeof num1 === `undefined`) {
+let operatorFunction = function(element) {
+    
+    if (secondOperand == `0`) {
+        alert(`No no no! Dividing by zero is a crime against humanity :)`);
+
+    }  else if (typeof num1 === `undefined`) {
         num1 = parseFloat(firstOperand);
         operator = element.getAttribute(`id`);
+        
 
     } else if (typeof equalSum === `number`) {
         num2 = undefined;
@@ -172,7 +178,7 @@ let operatorFunction = function (element) {
 
     } else if (typeof num1 === `number`) {
         num2 = parseFloat(secondOperand);
-        sum = operate(num1, operator, num2);
+        sum = Math.round((operate(num1, operator, num2) + Number.EPSILON) * 100) / 100;
         display.textContent = `${sum}`;
         secondOperand = ``;
         num1 = sum;
@@ -291,14 +297,14 @@ document.addEventListener(`keydown`, function (event) {
 
     } else if (map[`Equal`]) {
         num2 = parseFloat(secondOperand);
-        equalSum = operate(num1, operator, num2);
+        equalSum = Math.round((operate(num1, operator, num2) + Number.EPSILON) * 100) / 100;
         display.textContent = `${equalSum}`;
         secondOperand = ``;
         num1 = equalSum;
     } else if (map[`ControlLeft`]) {
         characterInsertion();
           
-    } else if (map[`Period`]) {
+    } else if (map[`Period`] && display.textContent.includes('.') == false ) {
         characterInsertion();
            
     } else if (map[`Backspace`]) {
@@ -322,9 +328,14 @@ clear.addEventListener(`click`, () => {
 
 Array.from(operatorElements).forEach(function (element) {
     element.addEventListener(`click`, () => {
+        console.log(secondOperand);
         operatorFunction(element);
+        
     });
 });
+
+
+
 
 Array.from(numberElements).forEach(function (element) {
     element.addEventListener(`click`, () => {
@@ -346,12 +357,18 @@ Array.from(numberElements).forEach(function (element) {
                 };
             };
         };
+        if (number === `decimal` && display.textContent.includes(`.`) == false) {
+            firstOperand += `.`;
+            display.textContent += `.`;
+        }
+        console.log(number);
     });
 });
 
 equals.addEventListener(`click`, () => {
     num2 = parseFloat(secondOperand);
-    equalSum = operate(num1, operator, num2);
+    equalSum = Math.round((operate(num1, operator, num2) + Number.EPSILON) * 100) / 100;
+    console.log(equalSum);
     display.textContent = `${equalSum}`;
     secondOperand = ``;
     num1 = equalSum;
