@@ -16,10 +16,11 @@
 [   [x] add keyboard support
 [   [x] don't allow users to enter more than one decimal point
 [   [x] round decimal places in sum to two places.
-[
-[  
+[   [ ] make keyboard functionality mirror click irt CSS transitions (flash color)
+[   [ ] have keydown / click functions turn operators different color until next operator is pressed
+[           - do this by adding css classes then removing
+[   [ ] entering 37326 (telephone code for dream) will activate easter egg
 */
-
 
 
 /*Query Selectors*/
@@ -31,8 +32,7 @@ const operatorElements = document.querySelectorAll(`.operators`)
 const numberElements = document.getElementsByClassName("numbers");
 const decimal = document.querySelector(`#decimal`)
 let runningTotal = 0;
-
-
+const doodle = document.querySelector('css-doodle');
 
 
 /*Global Number Storage*/
@@ -226,7 +226,6 @@ function characterInsertion() {
 };
 
 
-
 /* Keyboard Event Listeners*/
 let map = {};
 
@@ -334,7 +333,7 @@ Array.from(operatorElements).forEach(function (element) {
     });
 });
 
-
+doodle.addEventListener(`click`, () => doodle.update());
 
 
 Array.from(numberElements).forEach(function (element) {
@@ -373,3 +372,4 @@ equals.addEventListener(`click`, () => {
     secondOperand = ``;
     num1 = equalSum;
 });
+

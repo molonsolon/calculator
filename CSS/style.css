@@ -1,68 +1,89 @@
 html {
-    width: auto;
-    height: 100%;
-    background: linear-gradient(hsl(207, 94%, 50%), hsl(207, 80%, 84%));
+    background: linear-gradient(hsl(0, 0%, 0%), hsl(0, 0%, 7%));
+   
 }
+
 body {
     font-size: 10px;
     font-family: 'Iceland', cursive;
-    margin-top: 100px;
-    overflow: hidden;
+    
+}
+#doodle {
+    position: absolute;
+    z-index: -5;
+    margin-top: -200px;
+    margin-left: -100px;
+    
+}
+
+#intro {
+    width: 100vw;
+    height: 150vh;
+  
+    position: absolute;
+     
+    margin-top: -200px;
+    border-style: solid;
+    border-color: black;
+    border-width: 10px;
+    background: rgba(0, 0, 0, 1);
+    animation: background 4s ease-in-out 9s 1 forwards;
+    z-index: 9;
+}
+h1 {
+    z-index: 10 !important;
+    position: absolute;
+    color: white;
+    font-size: 2rem;
+    animation: text1 5s forwards 1;
+    margin-left: 100px;
+
+}
+
+h2 {
+    z-index: 10;
+    position: absolute;
+    color: white;
+    font-size: 2rem;
+    animation: text2 5s forwards 4s 1;
+    opacity: 0;
+    margin-left: 100px;
+    margin-top: 50px;
+    
+}
+
+@keyframes text2 {
+    0% {opacity: 0}
+    50%{opacity: 1}
+    100%{opacity: 0}
+}
+
+@keyframes text1 {
+    0% {opacity: 0}
+    50%{opacity: 1}
+    100%{opacity: 0}
+}
+
+@keyframes background {
+  
+    99% {opacity: 0}
+    100%{z-index: -10}
 }
 
 button {
     font-family: 'Iceland', cursive;
-    color: black;
-    background-color: rgba(205, 231, 255, 0.6);
-    
-    border-color: white !important;
+    color: rgb(201, 199, 199);
+   
+    background-color: rgba(0, 0, 0);
+    border-color: grey !important;
     border-width: 1px !important;
     border-style: solid !important;
     font-size: 2rem;
-    z-index: 5;
+    z-index: 1;
 
 }
 
-.cloud {
-    width: 600px;
-    height: 100px;
-    border-radius: 50%;
-    position: fixed;
-    margin-top: -150px;
-    margin-left: -100px;
-    z-index: 1;
-  }
-  
-  #cloud-base {
-    top: 90px;
-    height: 100px;
-    filter: url(#filter-base);
-    box-shadow: 200px 170px 19px 40px rgba(255, 255, 255, 0.9);
-  }
-  #cloud-back {
-    top: 90px;
-    height: 30px;
-    width: 500px;
-    filter: url(#filter-back);
-    box-shadow: 200px 200px 10px 40px rgba(215, 215, 215, 0.3);
-  }
-  
-  #cloud-mid {
-    top: 80px;
-    width: 580px;
-    height: 35px;
-    filter: url(#filter-mid);
-    box-shadow: 210px 250px 28px 30px rgba(66, 105, 146, 0.2);
-  }
-  
-  #cloud-front {
-    top: 70px;
-    width: 450px;
-    height: 40px;
-    left: -20px;
-    filter: url(#filter-front);
-    box-shadow: 210px 272px 30px 0px rgba(0, 0, 0, 0.2);
-  }
+
 
 #calc-container {
     width: 429px;
@@ -72,23 +93,51 @@ button {
     grid-gap: 3px;
     grid-template-columns: repeat(3, 100px) 120px;
     grid-template-rows: 120px repeat(5, 84px);
-    z-index: 2;
+    z-index: 10;
+    
+    border-color: rgb(0, 0, 0);
+    border-style: solid;
+    border-width: 10px;
+    background-color: rgba(0, 0, 0);
+    margin-top: 100px;
     
 }
 
 
 
 
+#bar {
+    height: 50px;
+    width: 5px;
+    background-color:rgba(12, 209, 38, 0.801);
+    position: absolute;
+    margin-left: 425px;
+    margin-top: 35px;
+    animation: blink 1.2s linear 1s infinite; 
+    z-index: 3;
+}
+
+@keyframes blink {
+    0% {opacity: 0%;}
+    40% {opacity: 0%;}
+    41% {opacity: 100%;}
+    100% {opacity: 100%;}
+}
+
 #display-area {
     height: 120px;
-    width: 427px;
-    color: rgb(92, 92, 92);
+    width: 417px;
+    margin-left: -10px;
+    color: rgba(12, 209, 38, 0.801);
     grid-area: 1 / 1 / 1 / span 2;
     font-size: 5rem;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     z-index: 2;
+    padding-left: 10px;
+    padding-right: 20px;
+    background-color: black;
     
 }
 
@@ -97,22 +146,28 @@ button {
     flex-wrap: wrap;
     gap: 3px;
     grid-area: 3 / 1 / 6 / 4;
+    
+    
 }
 
 #decimal {
     width: 100px;
     height: 84px;
    
-    border: none;
 }
 
 
 .numbers {
    width: 100px;
    height: 84px;
-   
-   border: none;
 }
+
+.numbers:active {
+    
+    background-color: white;
+    transform: translateY(2px);
+}
+
 
 [id='0'] {
     width: 203px;
@@ -128,15 +183,19 @@ button {
 .operators {
    height: 84px;
    width: 120px;
-   
-   border: none;
+   color: #3dc0a4e3;
+}
+
+.operators:active,
+.extra-operators:active {
+    background-color: red;
+    transform: translateY(2px);
 }
 
 #equals {
     height: 84px;
     width: 120px; 
-   
-    border: none;
+    color: rgba(12, 209, 38, 0.801);
 }
 
 #extra-operators-container {
@@ -150,8 +209,7 @@ button {
 
 .extra-operators {
    width: 100px;
-
-   border: none;
+   color: #3dc0a4e3;
 
 }
 
@@ -166,3 +224,12 @@ button {
     margin-left: -103px;
     border-bottom-width: 1px !important;
 }
+
+#clear {
+    color: rgba(255, 0, 0, 0.753);
+}
+
+#clear:active {
+    background-color: white;
+}
+
