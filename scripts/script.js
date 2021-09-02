@@ -19,7 +19,8 @@
 [   [ ] make keyboard functionality mirror click irt CSS transitions (flash color)
 [   [ ] have keydown / click functions turn operators different color until next operator is pressed
 [           - do this by adding css classes then removing
-[   [ ] entering 37326 (telephone code for dream) will activate easter egg
+[   [x] entering 37326 (telephone code for dream) will activate easter egg
+[   [ ] figure out how to make stars in doodle animated, move around very slightly, maybe twinkle.
 */
 
 
@@ -33,6 +34,9 @@ const numberElements = document.getElementsByClassName("numbers");
 const decimal = document.querySelector(`#decimal`)
 let runningTotal = 0;
 const doodle = document.querySelector('css-doodle');
+const telephone = document.querySelector(`#call`);
+const body = document.querySelector(`body`);
+const entrance = document.createElement(`entrance`);
 
 
 /*Global Number Storage*/
@@ -225,6 +229,11 @@ function characterInsertion() {
     };  
 };
 
+// window.addEventListener(`DOMContentLoaded`, () => {
+//     const backgroundMusic = new Audio(`/audio/4Bill.wav`);
+//     backgroundMusic.play();
+// })
+
 
 /* Keyboard Event Listeners*/
 let map = {};
@@ -373,3 +382,22 @@ equals.addEventListener(`click`, () => {
     num1 = equalSum;
 });
 
+telephone.addEventListener(`click`, () => {
+    if (display.textContent === `37326`)  {
+        body.appendChild(entrance);
+        entrance.style.cssText = `background-color: white;
+                                z-index: 15;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                width: 500px;
+                                height: 500px;
+                                border-radius: 50%; `;
+        let entranceSound = new Audio(`/audio/entrance-number.wav`);
+        entranceSound.play();
+    } else {
+        display.textContent = `... No answer`;
+        let wrongNumberSound = new Audio('/audio/wrong-number.wav')
+        wrongNumberSound.play();
+    }
+})

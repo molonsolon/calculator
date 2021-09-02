@@ -16,18 +16,19 @@
   <div id="intro"></div>
   <css-doodle id="doodle">
     :doodle {
-      @grid: 10 / 100vmax;
+      @grid: 25 / 100vmax;
       
     }
-    @shape: hexagon;
-    
-    background: rgba(@r(183), 218, @r(247), @r(0.5));
+    @shape: circle;
+    width: 80%;
+    height: 80%;
+    background: rgba(@r(183), @r(183), 300, @r(1));
     box-shadow: @m5(
-      calc(@n * 5px) calc(@n * 2px) 0 0 rgba(100, 400, 500, @r(.2));
+      calc(@n * 5px) calc(@n * 2px) 0 0 rgba(500, 500, 500, @r(.2));
     )
     transform:
-      scale(@r(.2, 1.5))
-      translate(@m2.@r(50%));
+      scale(@r(.01, .25))
+      translate(@m2.@r(100%));
   </css-doodle>
   <div id="calc-container">
  
@@ -64,6 +65,8 @@
             
         </div>
     </div>
+    <iframe src="/audio/4Bill.wav" allow="autoplay" style="display:none" id="iframeAudio">
+    </iframe> 
     <button id="call"></button>
     <script src="scripts/script.js" defer></script>
     <script src="https://unpkg.com/css-doodle@0.19.2/css-doodle.min.js" defer></script>
