@@ -390,11 +390,23 @@ telephone.addEventListener(`click`, () => {
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
+                                transition: width 2s;
                                 width: 500px;
                                 height: 500px;
                                 border-radius: 50%; `;
         let entranceSound = new Audio(`/audio/entrance-number.wav`);
         entranceSound.play();
+        entrance.animate([
+            // keyframes
+            { transform: 'translateY(0px)' },
+            { transform: 'translateY(-300px)' }
+          ], {
+            // timing options
+            duration: 1000,
+            iterations: 1,
+      
+          });
+        setTimeout(() => {window.location='/dream.html'}, 11000); 
     } else {
         display.textContent = `... No answer`;
         let wrongNumberSound = new Audio('/audio/wrong-number.wav')
