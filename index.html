@@ -16,19 +16,35 @@
   <div id="intro"></div>
   <css-doodle id="doodle">
     :doodle {
-      @grid: 25 / 100vmax;
+      @grid: 20 / 100vmax;
       
     }
+    
     @shape: circle;
-    width: 80%;
+    width: 3.5%;
     height: 80%;
-    background: rgba(@r(183), @r(183), 300, @r(1));
+    background: rgba(@r(100), @r(900), @r(500, 600), 1);
     box-shadow: @m5(
       calc(@n * 5px) calc(@n * 2px) 0 0 rgba(500, 500, 500, @r(.2));
     )
     transform:
       scale(@r(.01, .25))
       translate(@m2.@r(100%));
+      animation: test infinite @r(20s, 40s) linear;
+     
+      @keyframes test {
+        0% {
+            transform: translate3d(0, 0, 0);
+            opacity: @r(25%, 50%);
+          }
+        50% {
+            transform: translate3d(@r(-500%, 1000%), @r(-500%, 1000%), 0);
+            opacity 100%;
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+            opacity: @r(25%, 50%);
+        }
   </css-doodle>
   <div id="calc-container">
  
