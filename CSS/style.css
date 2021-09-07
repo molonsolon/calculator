@@ -17,7 +17,7 @@ body {
     
 }
 
-/* #intro { 
+#intro { 
     width: 100vw;
     height: 150vh;
   
@@ -82,7 +82,7 @@ h3 {
     99% {opacity: 0}
     100%{z-index: -10;
          opacity: 0;}
-}  */
+} 
 
 button {
     font-family: 'Iceland', cursive;

@@ -1,0 +1,30 @@
+What is your name?
+
+Do you know why you're here?
+ []yes
+ []no
+
+    if yes -- You must be helplessly lost, then.
+    if no -- Pay attention. Memories are erased in each moment.
+
+Why do you choose to continue living?
+    1. I do not want to continue 
+    2. I have found love amongst imperfection
+    3. My God wishes it so.
+    4. There is much more to accomplish. 
+
+Path 1: A Willing End
+    -Sisyphus travels up a lightless hill. The stone he rolls from valley to peak begins to erode his tested will.
+    -Describe the dream you last remember
+    -What did that memory bring closest to the surface?
+        []anger
+        []hopelessness
+        []joy
+        []love
+        []lust
+
+Path 2: Love is Overtaking Me
+
+Path 3: Child of God
+
+Path 4. One Rung At A Time
