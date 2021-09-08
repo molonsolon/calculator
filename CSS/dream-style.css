@@ -1,0 +1,98 @@
+body {
+    background-color: black;
+    font-family: Iceland;
+}
+
+
+#interrogation-room {
+    z-index: 0;
+    position: fixed;
+    overflow-y: scroll;
+    width: 100%;
+    height: auto;
+    
+}
+
+#hello {
+    color: white;
+    position: absolute;
+    z-index: 1;
+    font-size: 3rem;
+    margin-top: 19%;
+    margin-left: 5%;
+    font-size: 2rem;
+
+}
+#name {
+    position: absolute;
+    margin-top: 22%;
+    margin-left: 5%;;
+    background-color: black;
+    opacity: 60%;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.589);
+    height: 100px;
+    width: 500px;
+    color: white;
+    font-size: 2.5rem;
+    padding-left: 50px;
+    padding-right: 50px;
+    z-index: 2;
+    font-family: iceland;
+}   
+
+#next {
+    position: absolute !important;
+    margin-top: 29%;
+    margin-left: 32.5%;
+    height: 44px;
+    width: 80px;
+    z-index: 2;
+    background-color: black;
+    opacity: 60%;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.589);
+    color: white;
+}
+
+.question-two {
+    color: white;
+    position: absolute;
+    z-index: 1;
+    font-size: 3rem;
+    margin-top: 21%;
+    margin-left: 5%;
+    font-size: 2rem;
+}
+
+.answer-two {
+    position: absolute;
+    margin-top: 24%;
+    margin-left: 5%;
+    background-color: black;
+    opacity: 60%;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.589);
+    height: 100px;
+    width: 500px;
+    color: white;
+    font-size: 2.5rem;
+    padding-left: 50px;
+    padding-right: 50px;
+    z-index: 2;
+    font-family: iceland;
+}
+
+.next-two {
+    position: absolute;
+    margin-top: 31%;
+    margin-left: 32.5%;
+    height: 44px;
+    width: 80px;
+    z-index: 2;
+    background-color: black;
+    opacity: 60%;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.589);
+    color: white;
+}
