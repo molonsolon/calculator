@@ -1,8 +1,8 @@
 What is your name?
 
 Do you know why you're here?
- []yes
- []no
+ [ ] yes
+ [ ] no
 
     if yes -- You must be helplessly lost, then.
     if no -- Pay attention. Memories are erased in each moment.
@@ -16,12 +16,16 @@ Why do you choose to continue living?
 Path 1: A Willing End
     -Sisyphus travels up a lightless hill. The stone he rolls from valley to peak begins to erode his tested will.
     -Describe the dream you last remember
-    -What did that memory bring closest to the surface?
-        []anger
-        []hopelessness
-        []joy
-        []love
-        []lust
+    -What is closest to the surface?
+        [ ] anger
+            - Friction is found in dissonance. Are you lost in the dark seas of a conflicted mind?
+                [ ] yes
+                
+                [ ] no
+        [ ] hopelessness
+        [ ] joy
+        [ ] love
+        [ ] lust
 
 Path 2: Love is Overtaking Me
 
