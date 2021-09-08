@@ -408,7 +408,7 @@ telephone.addEventListener(`click`, () => {
           });
         setTimeout(() => {window.location='/dream.html'}, 11000); 
     } else {
-        display.textContent = `... No answer`;
+        display.textContent = `Not In Service`;
         let wrongNumberSound = new Audio('/audio/wrong-number.wav')
         wrongNumberSound.play();
     }
