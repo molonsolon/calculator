@@ -4,13 +4,21 @@ Do you know why you're here?
  [ ] yes
  [ ] no
 
-    if yes -- You must be helplessly lost, then.
-    if no -- Pay attention. Memories are erased in each moment.
+    if yes -- That is good. This is no place for fear. There is a door which you may leave through whenver you wish.
+    if no -- Pay attention. Experience is constant and memories fade with each passing moment. There is a door which you may leave through whenver you wish, but I reccomend you stay awhile. 
+
+
+Response: [ ] Who are you?
+              - A question.
+          [ ] Where are we?
+              - A place you have been before and a place you will be again.
+          [ ] Am I alive?
+              - I cannot say that with certainty.
 
 Why do you choose to continue living?
     1. I do not want to continue 
     2. I have found love amongst imperfection
-    3. My God wishes it so.
+    3. I seek the salvation of my soul.
     4. There is much more to accomplish. 
 
 Path 1: A Willing End
@@ -18,9 +26,11 @@ Path 1: A Willing End
     -Describe the dream you last remember
     -What is closest to the surface?
         [ ] anger
-            - Friction is found in dissonance. Are you lost in the dark seas of a conflicted mind?
+            - Friction is found in dissonance. Have you found yourself been wading through the forceful currents of indecision?
                 [ ] yes
-                
+                    - Your useful hours are lost as you stand motionless amongst the waves. Light filters through the ominous pre-storm clouds. You have been here before and you will be here again.
+                      There is a chance for you to break this cycle. You can not split the sea for easy passing. ?
+                      [ ] 
                 [ ] no
         [ ] hopelessness
         [ ] joy
