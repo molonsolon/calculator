@@ -394,7 +394,7 @@ telephone.addEventListener(`click`, () => {
                                 width: 500px;
                                 height: 500px;
                                 border-radius: 50%; `;
-        let entranceSound = new Audio(`/audio/entrance-number.wav`);
+        let entranceSound = new Audio(`audio/entrance-number.wav`);
         entranceSound.play();
         entrance.animate([
             // keyframes
@@ -409,7 +409,7 @@ telephone.addEventListener(`click`, () => {
         setTimeout(() => {window.location='/dream.html'}, 11000); 
     } else {
         display.textContent = `Not In Service`;
-        let wrongNumberSound = new Audio('/audio/wrong-number.wav')
+        let wrongNumberSound = new Audio('audio/wrong-number.wav')
         wrongNumberSound.play();
     }
 })
